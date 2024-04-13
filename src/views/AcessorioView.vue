@@ -1,51 +1,51 @@
 <script setup>
 import { ref, reactive, onMounted } from "vue";
-import CategoriasApi from "../api/categorias";
-const categoriasApi = new CategoriasApi();
+import AcessoriosApi from "../api/acessorios";
+const acessoriosApi = new AcessoriosApi();
 
-const defaultCategoria = { id: null, descricao: "" };
-const categorias = ref([]);
-const categoria = reactive({ ...defaultCategoria });
+const defaultAcessorio = { id: null, descricao: "" };
+const acessorios = ref([]);
+const acessorio = reactive({ ...defaultAcessorio });
 
 onMounted(async () => {
-  categorias.value = await categoriasApi.buscarTodasAsCategorias();
+  acessorios.value = await acessoriosApi.buscarTodosOsAcessorios();
 });
 
 function limpar() {
-  Object.assign(categoria, { ...defaultCategoria });
+  Object.assign(acessorio, { ...defaultAcessorio });
 }
 
 async function salvar() {
-  if (categoria.descricao.length >= 100) {
+  if (acessorio.descricao.length >= 100) {
     alert("mais de 100");
-  } else if (categoria.id) {
-    await categoriasApi.atualizarCategoria(categoria);
+  } else if (acessorio.id) {
+    await acessoriosApi.atualizarAcessorio(acessorio);
   } else {
-    await categoriasApi.adicionarCategoria(categoria);
+    await acessoriosApi.adicionarAcessorio(acessorio);
   }
-  categorias.value = await categoriasApi.buscarTodasAsCategorias();
+  acessorios.value = await acessoriosApi.buscarTodosOsAcessorios();
   limpar();
 }
 
-function editar(categoria_para_editar) {
-  Object.assign(categoria, categoria_para_editar);
+function editar(acessorio_para_editar) {
+  Object.assign(acessorio, acessorio_para_editar);
 }
 
 async function excluir(id) {
-  await categoriasApi.excluirCategoria(id);
-  categorias.value = await categoriasApi.buscarTodasAsCategorias();
+  await acessoriosApi.excluirAcessorio(id);
+  acessorios.value = await acessoriosApi.buscarTodosOsAcessorios();
   limpar();
 }
 </script>
 
 <template>
   <div class="container">
-    <h1>Categoria</h1>
+    <h1>Acessorio</h1>
     <div class="form">
       <div class="input-box">
         <div class="desc">
           <label for="descricao">Descrição</label>
-          <textarea v-model="categoria.descricao"></textarea>
+          <textarea v-model="acessorio.descricao"></textarea>
         </div>
         <div class="buttons">
           <button @click="salvar" class="salvar">Salvar</button>
@@ -56,17 +56,17 @@ async function excluir(id) {
     <ul>
       <div
         class="CategoriasContainer"
-        v-for="categoria in categorias"
-        :key="categoria.id"
+        v-for="acessorio in acessorios"
+        :key="acessorio.id"
       >
         <li>
-          <p @click="editar(categoria)">
-            {{ categoria.descricao }}
+          <p @click="editar(acessorio)">
+            {{ acessorio.descricao }}
           </p>
         </li>
         <div class="buttons">
-          <span class="id">{{ categoria.id }} </span>
-          <button class="deletar" @click="excluir(categoria.id)">X</button>
+          <span class="id">{{ acessorio.id }} </span>
+          <button class="deletar" @click="excluir(acessorio.id)">X</button>
         </div>
       </div>
     </ul>

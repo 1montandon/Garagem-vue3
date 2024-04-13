@@ -9,6 +9,13 @@
       >
       <span></span>
       <router-link to="/categorias" :class="{ 'active-link': $route.path === '/categorias', 'navtext': $route.path !== '/categorias' }"> Categorias</router-link>
+      <span></span>
+      <router-link to="/acessorios" :class="{ 'active-link': $route.path === '/acessorios', 'navtext': $route.path !== '/acessorios' }"> Acessorios</router-link>
+      <span></span>
+      <router-link to="/cores" :class="{ 'active-link': $route.path === '/cores', 'navtext': $route.path !== '/cores' }"> Cores</router-link>
+      <span></span>
+      <router-link to="/marcas" :class="{ 'active-link': $route.path === '/marcas', 'navtext': $route.path !== '/marcas' }"> Marcas</router-link>
+
     </nav>
 
     <div class="logodiv">
@@ -26,7 +33,8 @@
 <style scoped>
 header {
   height: 100px;
-  border-bottom: 2px solid rgb(211, 211, 211);
+  /*border-bottom: 2px solid rgb(211, 211, 211);*/
+  box-shadow: 0px 2px 20px 0px #007bff36;
   margin: 0px;
   padding: 00px 60px 00px 60px;
   display: grid;

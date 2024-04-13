@@ -1,7 +1,8 @@
 <script setup></script>
 
 <template>
-  <div class="container"><h1>BemVindo</h1></div>
+  <div class="container"><h1>Bem Vindo</h1></div>
+  so salvinho
 </template>
 <style scope>
 .container {

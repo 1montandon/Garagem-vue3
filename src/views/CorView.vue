@@ -1,51 +1,51 @@
 <script setup>
 import { ref, reactive, onMounted } from "vue";
-import CategoriasApi from "../api/categorias";
-const categoriasApi = new CategoriasApi();
+import CoresApi from "../api/cores";
+const coresApi = new CoresApi();
 
-const defaultCategoria = { id: null, descricao: "" };
-const categorias = ref([]);
-const categoria = reactive({ ...defaultCategoria });
+const defaultCor = { id: null, descricao: "" };
+const cores = ref([]);
+const cor = reactive({ ...defaultCor });
 
 onMounted(async () => {
-  categorias.value = await categoriasApi.buscarTodasAsCategorias();
+  cores.value = await coresApi.buscarTodasAsCores();
 });
 
 function limpar() {
-  Object.assign(categoria, { ...defaultCategoria });
+  Object.assign(cor, { ...defaultCor });
 }
 
 async function salvar() {
-  if (categoria.descricao.length >= 100) {
+  if (cor.descricao.length >= 100) {
     alert("mais de 100");
-  } else if (categoria.id) {
-    await categoriasApi.atualizarCategoria(categoria);
+  } else if (cor.id) {
+    await coresApi.atualizarCor(cor);
   } else {
-    await categoriasApi.adicionarCategoria(categoria);
+    await coresApi.adicionarCor(cor);
   }
-  categorias.value = await categoriasApi.buscarTodasAsCategorias();
+  cores.value = await coresApi.buscarTodasAsCores();
   limpar();
 }
 
-function editar(categoria_para_editar) {
-  Object.assign(categoria, categoria_para_editar);
+function editar(cor_para_editar) {
+  Object.assign(cor, cor_para_editar);
 }
 
 async function excluir(id) {
-  await categoriasApi.excluirCategoria(id);
-  categorias.value = await categoriasApi.buscarTodasAsCategorias();
+  await coresApi.excluirCor(id);
+  cores.value = await coresApi.buscarTodasAsCores();
   limpar();
 }
 </script>
 
 <template>
   <div class="container">
-    <h1>Categoria</h1>
+    <h1>Cor</h1>
     <div class="form">
       <div class="input-box">
         <div class="desc">
-          <label for="descricao">Descrição</label>
-          <textarea v-model="categoria.descricao"></textarea>
+          <label for="descricao">Nome</label>
+          <textarea v-model="cor.nome"></textarea>
         </div>
         <div class="buttons">
           <button @click="salvar" class="salvar">Salvar</button>
@@ -54,19 +54,15 @@ async function excluir(id) {
       </div>
     </div>
     <ul>
-      <div
-        class="CategoriasContainer"
-        v-for="categoria in categorias"
-        :key="categoria.id"
-      >
+      <div class="CategoriasContainer" v-for="cor in cores" :key="cor.id">
         <li>
-          <p @click="editar(categoria)">
-            {{ categoria.descricao }}
+          <p @click="editar(cor)">
+            {{ cor.nome }}
           </p>
         </li>
         <div class="buttons">
-          <span class="id">{{ categoria.id }} </span>
-          <button class="deletar" @click="excluir(categoria.id)">X</button>
+          <span class="id">{{ cor.id }} </span>
+          <button class="deletar" @click="excluir(cor.id)">X</button>
         </div>
       </div>
     </ul>

@@ -1,51 +1,62 @@
 <script setup>
 import { ref, reactive, onMounted } from "vue";
-import CategoriasApi from "../api/categorias";
-const categoriasApi = new CategoriasApi();
+import MarcasApi from "../api/marcas";
+const marcasApi = new MarcasApi();
 
-const defaultCategoria = { id: null, descricao: "" };
-const categorias = ref([]);
-const categoria = reactive({ ...defaultCategoria });
+const defaultMarca = { id: null, nome: "", nacionalidade:"" };
+const marcas = ref([]);
+const marca = reactive({ ...defaultMarca });
 
 onMounted(async () => {
-  categorias.value = await categoriasApi.buscarTodasAsCategorias();
+  marcas.value = await marcasApi.buscarTodasAsMarcas();
 });
 
 function limpar() {
-  Object.assign(categoria, { ...defaultCategoria });
+  Object.assign(marca, { ...defaultMarca });
 }
 
 async function salvar() {
-  if (categoria.descricao.length >= 100) {
-    alert("mais de 100");
-  } else if (categoria.id) {
-    await categoriasApi.atualizarCategoria(categoria);
+  if (marca.nome.length >= 50 || marca.nacionalidade.length >= 50) {
+    alert("mais de 50");
+  } else if (marca.id) {
+    await marcasApi.atualizarMarca(marca);
   } else {
-    await categoriasApi.adicionarCategoria(categoria);
+    await marcasApi.adicionarMarca(marca);
   }
-  categorias.value = await categoriasApi.buscarTodasAsCategorias();
+  marcas.value = await marcasApi.buscarTodasAsMarcas();
   limpar();
 }
 
-function editar(categoria_para_editar) {
-  Object.assign(categoria, categoria_para_editar);
+function editar(marca_para_editar) {
+    if(marca_para_editar)
+  Object.assign(marca, marca_para_editar);
 }
 
 async function excluir(id) {
-  await categoriasApi.excluirCategoria(id);
-  categorias.value = await categoriasApi.buscarTodasAsCategorias();
+  await marcasApi.excluirMarca(id);
+  marcas.value = await marcasApi.buscarTodasAsMarcas();
   limpar();
 }
 </script>
 
 <template>
   <div class="container">
-    <h1>Categoria</h1>
+    <h1>Marca</h1>
     <div class="form">
       <div class="input-box">
         <div class="desc">
-          <label for="descricao">Descrição</label>
-          <textarea v-model="categoria.descricao"></textarea>
+          <label for="descricao">Nome</label>
+          <textarea v-model="marca.nome"></textarea>
+        </div>
+        <div class="buttons">
+          <button @click="salvar" class="salvar">Salvar</button>
+          <button @click="limpar" class="limpar">Limpar</button>
+        </div>
+      </div>
+      <div class="input-box">
+        <div class="desc">
+          <label for="descricao">Nacionalidade</label>
+          <textarea v-model="marca.nacionalidade"></textarea>
         </div>
         <div class="buttons">
           <button @click="salvar" class="salvar">Salvar</button>
@@ -54,25 +65,33 @@ async function excluir(id) {
       </div>
     </div>
     <ul>
-      <div
-        class="CategoriasContainer"
-        v-for="categoria in categorias"
-        :key="categoria.id"
-      >
+      <div class="CategoriasContainer" v-for="marca in marcas" :key="marca.id">
+        <div class="lis"> 
         <li>
-          <p @click="editar(categoria)">
-            {{ categoria.descricao }}
+          <p @click="editar(marca)">
+            {{ marca.nome }}
           </p>
         </li>
+        <li>
+            <p @click="editar(marca)">
+            {{ marca.nacionalidade }}
+          </p>
+        </li>
+    </div>
         <div class="buttons">
-          <span class="id">{{ categoria.id }} </span>
-          <button class="deletar" @click="excluir(categoria.id)">X</button>
+          <span class="id">{{ marca.id }} </span>
+          <button class="deletar" @click="excluir(marca.id)">X</button>
         </div>
       </div>
     </ul>
   </div>
 </template>
 <style scoped>
+.lis{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 150px;
+}
 h1 {
   font-weight: 600;
 }
@@ -91,6 +110,7 @@ h1 {
   background-color: rgb(255, 255, 255);
   display: flex;
   align-items: center;
+  gap: 40px;
 }
 .desc {
   display: flex;
@@ -187,7 +207,7 @@ li {
   padding-right: 15px;
   padding-left: 15px;
   font-weight: 400;
-  height: 70px;
+  height: 50px;
   width: 250px;
   background-color: rgb(235, 235, 235);
   border-radius: 12px;
@@ -219,7 +239,7 @@ P:active {
   transition: 0.2s;
 }
 li p {
-  height: 60px;
+  height: 40px;
   align-items: center;
   display: grid;
   overflow-y: auto;
