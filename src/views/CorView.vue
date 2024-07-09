@@ -3,7 +3,7 @@ import { ref, reactive, onMounted } from "vue";
 import CoresApi from "../api/cores";
 const coresApi = new CoresApi();
 
-const defaultCor = { id: null, descricao: "" };
+const defaultCor = { id: null, nome: "" };
 const cores = ref([]);
 const cor = reactive({ ...defaultCor });
 
@@ -16,7 +16,7 @@ function limpar() {
 }
 
 async function salvar() {
-  if (cor.descricao.length >= 100) {
+  if (cor.nome.length >= 100) {
     alert("mais de 100");
   } else if (cor.id) {
     await coresApi.atualizarCor(cor);
