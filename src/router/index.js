@@ -33,7 +33,12 @@ const router = createRouter({
       path:"/marcas",
       name:"marcas",
       component: MarcaView,
-    }
+    },
+    {
+      path: "/login",
+      name: "login",
+      component: LoginView,
+    },
   ],
 });
 

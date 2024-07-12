@@ -9,6 +9,7 @@ axios.interceptors.request.use(
     const token = localStorage.getItem('psg_auth_token')
     if (token) {
       config.headers.Authorization = `Bearer ${token}`
+      console.log(token)
     }
     return config
   },
