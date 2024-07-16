@@ -1,21 +1,78 @@
-<script></script>
+<script setup>
+import { onMounted } from 'vue'
+import { PassageUser } from '@passageidentity/passage-elements/passage-user'
+import { useAuthStore } from '../src/stores/auth'
+
+const authStore = useAuthStore()
+</script>
 <template>
   <header>
     <nav>
+      <div v-if="authStore.loggedIn">
+        <router-link to="/logout">Logout</router-link>
+        {{ authStore.user.email }}
+      </div>
+
+      <div v-else>
+        <router-link to="/login">Login</router-link>
+        <span></span>
+      </div>
+
       <router-link
         to="/"
-        :class="{ 'active-link': $route.path === '/', 'navtext': $route.path !== '/' }"
+        :class="{ 'active-link': $route.path === '/', navtext: $route.path !== '/' }"
         >Home</router-link
       >
       <span></span>
-      <router-link to="/categorias" :class="{ 'active-link': $route.path === '/categorias', 'navtext': $route.path !== '/categorias' }"> Categorias</router-link>
-      <span></span>
-      <router-link to="/acessorios" :class="{ 'active-link': $route.path === '/acessorios', 'navtext': $route.path !== '/acessorios' }"> Acessorios</router-link>
-      <span></span>
-      <router-link to="/cores" :class="{ 'active-link': $route.path === '/cores', 'navtext': $route.path !== '/cores' }"> Cores</router-link>
-      <span></span>
-      <router-link to="/marcas" :class="{ 'active-link': $route.path === '/marcas', 'navtext': $route.path !== '/marcas' }"> Marcas</router-link>
 
+      <router-link
+        to="/categorias"
+        :class="{
+          'active-link': $route.path === '/categorias',
+          navtext: $route.path !== '/categorias'
+        }"
+      >
+        Categorias
+      </router-link>
+
+      <span></span>
+
+      <router-link
+        to="/acessorios"
+        :class="{
+          'active-link': $route.path === '/acessorios',
+          navtext: $route.path !== '/acessorios'
+        }"
+      >
+        Acessorios
+      </router-link>
+
+      <span></span>
+
+      <router-link
+        to="/cores"
+        :class="{ 'active-link': $route.path === '/cores', navtext: $route.path !== '/cores' }"
+      >
+        Cores
+      </router-link>
+
+      <span></span>
+
+      <router-link
+        to="/marcas"
+        :class="{ 'active-link': $route.path === '/marcas', navtext: $route.path !== '/marcas' }"
+      >
+        Marcas</router-link
+      >
+
+    <span></span>
+
+    <router-link
+        to="/modelos"
+        :class="{ 'active-link': $route.path === '/modelos', navtext: $route.path !== '/modelos' }"
+      >
+        Modelos</router-link
+      >
     </nav>
 
     <div class="logodiv">
@@ -42,24 +99,29 @@ header {
   align-items: center;
   justify-content: space-between;
 }
+
 nav {
   display: flex;
   gap: 30px;
 }
+
 .blank-div {
   width: 10px;
   height: 10px;
 }
+
 .navtext {
   text-decoration: none;
   color: black;
   font-weight: 400;
   font-size: 16px;
 }
+
 img {
   height: 60px;
   width: 100px;
 }
+
 .logodiv {
   height: 60px;
   width: 100px;
@@ -67,16 +129,19 @@ img {
   overflow: hidden;
   background-color: black;
 }
+
 span {
   height: 25px;
   width: 4px;
   background-color: rgb(0, 0, 0);
   border-radius: 20px;
 }
+
 .active-link {
   text-decoration: none;
   font-weight: 400;
   font-size: 16px;
-  color: #007bff; /* Your active link color */
+  color: #007bff;
+  /* Your active link color */
 }
 </style>

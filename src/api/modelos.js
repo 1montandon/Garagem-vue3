@@ -1,6 +1,6 @@
 import axios from "axios";
 export default class ModelosApi {
-  async buscarTodasOsModelos() {
+  async buscarTodosOsModelos() {
     const { data } = await axios.get("/modelos/");
     return data.results;
   }
