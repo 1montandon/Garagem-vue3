@@ -8,7 +8,7 @@ const router = useRouter()
 onMounted(() => {
   authStore.unsetToken()
   localStorage.removeItem('psg_auth_token')
-  router.push({ name: 'home' })
+  router.push({ name: 'Home' })
 })
 </script>
 

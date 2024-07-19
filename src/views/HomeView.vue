@@ -26,7 +26,12 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="container"><h1>Bem Vindo</h1></div></template>
+  <div class="container">
+
+    <h1>Monta's Dealer</h1>
+
+  </div>
+</template>
 <style scope>
 .container {
   display: flex;

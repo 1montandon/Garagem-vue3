@@ -14,8 +14,10 @@
     "axios": "^1.7.2",
     "dotenv": "^16.3.1",
     "pinia": "^2.1.7",
+    "vite-plugin-pwa": "^0.20.0",
     "vue": "^3.2.37",
-    "vue-router": "^4.1.2"
+    "vue-router": "^4.1.2",
+    "workbox-precaching": "^7.1.0"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.1.0",
@@ -24,6 +26,6 @@
     "eslint": "^8.5.0",
     "eslint-plugin-vue": "^9.0.0",
     "prettier": "^2.5.1",
-    "vite": "^2.9.14"
+    "vite": "^2.9.18"
   }
 }
