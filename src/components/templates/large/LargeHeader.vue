@@ -1,5 +1,6 @@
 <script setup>
 import { useAuthStore } from '../../../stores/auth'
+
 const authStore = useAuthStore()
 </script>
 <template>
@@ -7,10 +8,9 @@ const authStore = useAuthStore()
     <router-link
       to="/"
       :class="{ 'active-link': $route.path === '/', navtext: $route.path !== '/' }"
-      >Home</router-link
-    >
-
-    <router-link
+      ><img src="../../../../public/logo.png" alt="">
+    </router-link>
+    <div><router-link
       to="/categorias"
       :class="{
         'active-link': $route.path === '/categorias',
@@ -57,31 +57,45 @@ const authStore = useAuthStore()
 
     <div class="loginButton" v-else>
   
-        <router-link to="/login">Login</router-link>
+        <router-link to="/login">Log In</router-link>
       
       
-    </div>
+    </div> 
+  </div>
+    
   </nav>
 </template>
 <style scoped>
 .loginButton{
   background-color: #007bff;
-  padding: 6px 10px ;
-  b
+  padding: 12px 30px;
+  border-radius: 10px;
+
+  & a{
+    color: white;
+    text-decoration: none;
+  }
 }
 nav {
   display: flex;
-  gap: 30px;
-  width: 1000px;
-  justify-content: end;
-  align-items: center
-}
+  width: 1500px;
+  justify-content: space-between;
+  align-items: center;
 
-.navtext {
-  text-decoration: none;
+  & a{
+    text-decoration: none;
   color: black;
-  font-weight: 400;
+  font-weight: 500;
   font-size: 16px;
+  }
+  & div{
+    display: flex;
+  gap: 60px;
+  align-items: center;
+  }
+}
+img{
+  width: 50px;
 }
 
 span {
