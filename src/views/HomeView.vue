@@ -29,7 +29,7 @@ onMounted(() => {
   <div class="container">
 
     <h1>Monta's Dealer</h1>
-
+   <img src="https://i.ibb.co/q0yfS61/FL2-G8-REW-WX.png" alt="FL2-G8-REW-WX">
   </div>
 </template>
 <style scope>
