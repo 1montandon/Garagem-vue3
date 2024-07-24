@@ -25,12 +25,12 @@ header {
   justify-content: center;
     align-items: center;
 }
+main{
+  display: flex;
+  justify-content: center
 
-
-main {
-  min-height: 80%;
-  padding: 2rem;
-  grid-area: main;
 }
+
+
 
 </style>
