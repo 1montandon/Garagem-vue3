@@ -44,24 +44,26 @@ onMounted(() => {
         <a href="">Messi Viado </a>
       </div>
     </div>
-
-    <img src="https://i.ibb.co/q0yfS61/FL2-G8-REW-WX.png" alt="FL2-G8-REW-WX" />
+    <div class="img"><img src="https://i.ibb.co/q0yfS61/FL2-G8-REW-WX.png" alt="FL2-G8-REW-WX" /> </div>
+    
   </div>
 </template>
 <style scoped>
 .container {
   display: flex;
-  width: 1300px;
-  height: 370px;
-  margin-top: 100px;
+  width: 100%;
+  padding: 0 7rem;
+  height: 23rem;
+  /*height: 370px;*/
+  margin-top: 5.5rem;
   justify-content: space-between;
 }
 
 .button {
   display: flex;
   background-color: #ff3131;
-  height: 50px;
-  width: 160px;
+  height: 3.2rem;
+  width: 9.6rem;
   border-radius: 10px;
   align-items: center;
     justify-content: center;
@@ -75,9 +77,9 @@ onMounted(() => {
 }
 .content {
   display: flex;
-  width: 700px;
+  width: 38rem;
   flex-direction: column;
-  gap: 35px;
+  gap: 2.2rem;
   & h1 {
     font-size: 4.8em;
     font-weight: 500;
@@ -94,8 +96,15 @@ onMounted(() => {
   flex-direction: column;
   gap: 15px;
 }
-img{
-  height: 350px;
-  margin: 50px;
+.img{
+  width: 95%;
+  margin-top: 3rem;
+  display: flex;
+  align-items: flex-end;
+
+  & img{
+    width: 100%;
+  }
 }
+
 </style>

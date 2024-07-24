@@ -73,7 +73,8 @@ const authStore = useAuthStore()
 }
 nav {
   display: flex;
-  width: 1300px;
+  width: 100%;
+  padding: 0 7rem;
   justify-content: space-between;
   align-items: center;
 
@@ -85,7 +86,7 @@ nav {
   }
   & div {
     display: flex;
-    gap: 60px;
+    gap: 4rem;
     align-items: center;
   }
 }
