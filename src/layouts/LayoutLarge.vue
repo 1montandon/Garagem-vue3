@@ -13,10 +13,6 @@
   </div>
 </template>
 <style scoped>
-#layout-large {
-  display: flex;
-  flex-direction: column;
-}
 
 header {
   display: flex;
@@ -24,11 +20,6 @@ header {
   width: 100vw;
   justify-content: center;
     align-items: center;
-}
-main{
-  display: flex;
-  justify-content: center
-
 }
 
 

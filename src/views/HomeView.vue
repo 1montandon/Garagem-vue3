@@ -36,7 +36,9 @@ onMounted(() => {
         <p>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi veritatis consectetur illo
           corporis libero commodi repellendus cum pariatur aliquid? A nam labore est explicabo nihil
-          aliquid? Dicta itaque error at!
+          aliquid? Dicta itaque error at!Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+          Sequi veritatis consectetur illo
+         
         </p>
       </div>
 
@@ -77,31 +79,34 @@ onMounted(() => {
 }
 .content {
   display: flex;
-  width: 38rem;
+  /*width: 38rem;*/
+  width: 60%;
+
   flex-direction: column;
-  gap: 2.2rem;
+  gap: 2.2em;
   & h1 {
-    font-size: 4.8em;
+    /* font-size: 4.6em; */
+    font-size: 4.6em;
     font-weight: 500;
-    line-height: 70px;
+    line-height: 1em;
+    width: 100%;
+
   }
   & p {
     font-size: 0.8em;
     color: rgb(107, 107, 107);
-    width: 600px;
+    width: 80%;
   }
 }
 .text-content{
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 1em;
+  width: 120%;
 }
 .img{
   width: 95%;
-  margin-top: 3rem;
-  display: flex;
-  align-items: flex-end;
-
+  margin-top: 4em;
   & img{
     width: 100%;
   }
