@@ -30,15 +30,14 @@ onMounted(() => {
     <div class="content">
       <div class="text-content">
         <h1>
-          Os Melhores <span style="color: #ff3131; font-weight: 500">Carros</span> Roubados da
-          Região
+          Os Melhores <span style="color: #ff3131; font-weight: 500">Carros</span> Roubados Perto de
+          <span style="color: #ff3131; font-weight: 500">Você</span>
         </h1>
         <p>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi veritatis consectetur illo
           corporis libero commodi repellendus cum pariatur aliquid? A nam labore est explicabo nihil
-          aliquid? Dicta itaque error at!Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+          aliquid? Dicta itaque error at!Lorem ipsum dolor sit amet consectetur adipisicing elit.
           Sequi veritatis consectetur illo
-         
         </p>
       </div>
 
@@ -46,17 +45,15 @@ onMounted(() => {
         <a href="">Messi Viado </a>
       </div>
     </div>
-    <div class="img"><img src="https://i.ibb.co/q0yfS61/FL2-G8-REW-WX.png" alt="FL2-G8-REW-WX" /> </div>
-    
+    <div class="img">
+      <img src="https://i.ibb.co/q0yfS61/FL2-G8-REW-WX.png" alt="FL2-G8-REW-WX" />
+    </div>
   </div>
 </template>
 <style scoped>
 .container {
   display: flex;
-  width: 100%;
   padding: 0 7rem;
-  /*height: 23rem;
-  /*height: 370px;*/
   margin-top: 5.5rem;
   justify-content: space-between;
 }
@@ -64,52 +61,55 @@ onMounted(() => {
 .button {
   display: flex;
   background-color: #ff3131;
-  height: 3.5em;
-  width: 10em;
+  height: 5em;
+  width: 16em;
   border-radius: 10px;
   align-items: center;
-    justify-content: center;
+  justify-content: center;
 
   & a {
-    font-size: 1em;
-    font-weight: 500;
+    font-size: 1.7rem;
+    font-weight: 400;
     color: white;
     text-decoration: none;
   }
 }
 .content {
   display: flex;
-  /*width: 38rem;*/
-  width: 60%;
+  width: 80%;
 
   flex-direction: column;
-  gap: 2.2em;
+  gap: 1.3rem;
   & h1 {
-    /* font-size: 4.6em; */
-    font-size: 4.6em;
+    font-size: 7rem;
     font-weight: 500;
     line-height: 1em;
     width: 100%;
-
   }
   & p {
-    font-size: 0.8em;
+    font-size: 1.2rem;
     color: rgb(107, 107, 107);
     width: 80%;
   }
 }
-.text-content{
+.text-content {
   display: flex;
   flex-direction: column;
   gap: 1em;
-  width: 120%;
+  width: 100%;
 }
-.img{
+.img {
   width: 95%;
-  margin-top: 4em;
-  & img{
+  margin-top: 4rem;
+  & img {
     width: 100%;
   }
 }
 
+@media only screen and (max-width: 1240px) {
+  .img {
+    margin-top: 10rem;
+    width: 70%;
+  }
+}
 </style>

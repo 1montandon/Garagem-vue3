@@ -63,7 +63,7 @@ const authStore = useAuthStore()
 <style scoped>
 .loginButton {
   background-color: #FF3131;
-  padding: 12px 30px;
+  padding: 1.2rem 3rem;
   border-radius: 10px;
 
   & a {
@@ -82,7 +82,7 @@ nav {
     text-decoration: none;
     color: black;
     font-weight: 500;
-    font-size: 16px;
+    font-size: 1.5rem;
   }
   & div {
     display: flex;
