@@ -70,8 +70,8 @@ async function excluir(id) {
 input {
   all: unset;
   outline: #5c5c5c solid 1px;
-  height: 40px;
-  width: 220px;
+  padding: 1.2rem 5rem;
+  border-radius: 1rem;
   border-radius: 5px;
   color: rgb(0, 0, 0);
   font-weight: 400;
@@ -98,9 +98,9 @@ input::placeholder {
   button {
     all: unset;
     color: white;
-    background-color: #ff3131;
-    padding: 5px 10px;
-    border-radius: 10px;
+    background-color: #FF3131;
+  padding: 1.2rem 3rem;
+  border-radius: 1rem;
   }
   button:hover {
     cursor: pointer;

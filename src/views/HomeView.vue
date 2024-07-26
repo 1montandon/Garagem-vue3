@@ -31,7 +31,7 @@ onMounted(() => {
       <div class="text-content">
         <h1>
           Os Melhores <span style="color: #ff3131; font-weight: 500">Carros</span> Roubados Perto de
-          <span style="color: #ff3131; font-weight: 500">Você</span>
+          <span style="color: #ff3131; font-weight: 500">Você!</span>
         </h1>
         <p>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi veritatis consectetur illo
@@ -56,6 +56,7 @@ onMounted(() => {
   padding: 0 7rem;
   margin-top: 5.5rem;
   justify-content: space-between;
+  align-items: center;
 }
 
 .button {
@@ -79,23 +80,25 @@ onMounted(() => {
   width: 80%;
 
   flex-direction: column;
-  gap: 1.3rem;
+  gap: 3rem;
   & h1 {
-    font-size: 7rem;
+    font-size: 8rem;
     font-weight: 500;
-    line-height: 1em;
+    line-height: 8rem;
     width: 100%;
   }
   & p {
     font-size: 1.2rem;
     color: rgb(107, 107, 107);
     width: 80%;
+    line-height: 2.4rem;
+
   }
 }
 .text-content {
   display: flex;
   flex-direction: column;
-  gap: 1em;
+  gap: 3em;
   width: 100%;
 }
 .img {
@@ -106,10 +109,13 @@ onMounted(() => {
   }
 }
 
-@media only screen and (max-width: 1240px) {
+@media only screen and (max-width: 1600px) {
   .img {
     margin-top: 10rem;
     width: 70%;
   }
+  .text-content {
+  width: 120%;
+}
 }
 </style>

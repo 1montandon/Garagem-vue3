@@ -64,7 +64,7 @@ const authStore = useAuthStore()
 .loginButton {
   background-color: #FF3131;
   padding: 1.2rem 3rem;
-  border-radius: 10px;
+  border-radius: 1rem;
 
   & a {
     color: white;

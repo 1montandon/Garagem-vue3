@@ -1,16 +1,26 @@
 <script setup>
 import { ref, reactive, onMounted } from 'vue'
 import ModelosApi from '../api/modelos'
-const modelosApi = new ModelosApi()
+import MarcasApi from '../api/marcas'
+import CategoriasApi from '../api/categorias'
 
-const defaultModelo = { id: null, nome: '', marca:{}, categoria:{}  }
+const modelosApi = new ModelosApi()
+const marcasApi = new MarcasApi()
+const categoriasApi = new CategoriasApi()
+
+const marcas = ref([])
+const marcaInput = ref()
+const categorias = ref([])
+ 
+
+const defaultModelo = { id: null, nome: '', marca: [], categoria: [] }
 const modelos = ref([])
 const modelo = reactive({ ...defaultModelo })
 
 onMounted(async () => {
   modelos.value = await modelosApi.buscarTodosOsModelos()
-  console.log(modelos.value)
-
+  marcas.value = await marcasApi.buscarTodasAsMarcas()
+  categorias.value = await categoriasApi.buscarTodasAsCategorias()
 })
 
 function limpar() {
@@ -31,6 +41,12 @@ async function salvar() {
 
 function editar(modelo_para_editar) {
   Object.assign(modelo, modelo_para_editar)
+  if (modelo_para_editar.marca.length == 0) {
+    marcaInput.value = 0
+  } 
+  else {
+    marcaInput.value = modelo_para_editar.marca[0].id
+  }
 }
 
 async function excluir(id) {
@@ -38,38 +54,38 @@ async function excluir(id) {
   modelos.value = await modelosApi.buscarTodosOsModelos()
   limpar()
 }
-
-
 </script>
 
 <template>
   <div class="container">
     <h1>Modelo</h1>
     <div class="input-box">
+      
       <input type="text" v-model="modelo.nome" placeholder="Descrição" />
+
+      <select v-model="modelo.marca">
+        <option v-for="marca in marcas" :value="marca.id" :key="marca.id">
+          {{ marca.nome }}
+        </option>
+      </select>
+
+      <select v-model="modelo.categoria.descricao">
+        <option v-for="categoria in categorias" :value="categoria.id" :key="categoria.id">
+          {{ categoria.descricao }}
+        </option>
+      </select>
+
       <div class="buttons">
         <button @click="salvar" class="salvar">Salvar</button>
         <button @click="limpar" class="limpar">Limpar</button>
       </div>
+
     </div>
-    <ul>
-      <div class="ModelosContainer" v-for="modelo in modelos" :key="modelo.id">
-        <li>
-          <p @click="editar(modelo)">
-              {{ modelo.nome }} ID:{{ modelo.id }}
-          </p>
-        </li>
-          <button class="deletar" @click="excluir(modelo.id)">X</button>
-      </div>
-
-      <select v-model="autorInput">
-      <option v-for="marca in modelos.marca" :value="marca.id" :key="marca.id">
-        {{ marca.nome }}
-        {{ marca.nacionalidade }}
-
-      </option>
-    </select>
-
+    <ul class="ModelosContainer" v-for="modelo in modelos" :key="modelo.id">
+      <li>
+        <p @click="editar(modelo)">{{ modelo.nome }} ID:{{ modelo.id }}</p>
+      </li>
+      <button class="deletar" @click="excluir(modelo.id)">X</button>
     </ul>
   </div>
 </template>
@@ -81,18 +97,23 @@ async function excluir(id) {
   align-items: center;
   gap: 20px;
 }
-input {
+
+input,
+select,
+option {
   all: unset;
   outline: #5c5c5c solid 1px;
-  height: 40px;
-  width: 220px;
-  border-radius: 5px;
+  width: 20rem;
+  height: 4rem;
+  border-radius: 1rem;
   color: rgb(0, 0, 0);
   font-weight: 400;
   overflow-y: auto;
   word-break: break-all;
   padding-left: 20px;
+  align-items: center;
 }
+
 input::placeholder {
   color: black;
 }
@@ -108,36 +129,41 @@ input::placeholder {
   display: flex;
   flex-direction: row;
   gap: 20px;
-
-  button {
-    all: unset;
-    color: white;
-    background-color: #ff3131;
-    padding: 5px 10px;
-    border-radius: 10px;
-  }
-  button:hover {
-    cursor: pointer;
-  }
-  button:active {
-    transition: 0.2s;
-    transform: scale(0.94);
-  }
 }
+
+.buttons button {
+  all: unset;
+  color: white;
+  background-color: #ff3131;
+  padding: 1.2rem 3rem;
+  border-radius: 1rem;
+}
+
+.buttons button:hover {
+  cursor: pointer;
+}
+
+.buttons button:active {
+  transition: 0.2s;
+  transform: scale(0.94);
+}
+
 button {
-    all: unset;
-    color: white;
-    background-color: #5e5e5e;
-    padding: 5px 10px;
-    border-radius: 10px;
-  }
-  button:hover {
-    cursor: pointer;
-  }
-  button:active {
-    transition: 0.2s;
-    transform: scale(0.94);
-  }
+  all: unset;
+  color: white;
+  background-color: #5e5e5e;
+  padding: 5px 10px;
+  border-radius: 10px;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+button:active {
+  transition: 0.2s;
+  transform: scale(0.94);
+}
 
 ul {
   list-style-type: none;
@@ -145,7 +171,7 @@ ul {
   padding: 0;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 30px
+  gap: 30px;
 }
 
 li {
