@@ -1,109 +1,168 @@
 <script setup>
-import { ref, reactive, onMounted } from "vue";
-import ModelosApi from "../api/modelos";
+import { ref, reactive, onMounted } from 'vue'
+import ModelosApi from '../api/modelos'
+const modelosApi = new ModelosApi()
 
-const modelosApi = new ModelosApi();
-
-const defaultModelo = { id: null, nome: "", marca:"", marca: Object, categoria: Object, };
-const modelo = reactive({...defaultModelo});
-const modelos = ref([]);
+const defaultModelo = { id: null, nome: '', marca:{}, categoria:{}  }
+const modelos = ref([])
+const modelo = reactive({ ...defaultModelo })
 
 onMounted(async () => {
-  modelos.value = await modelosApi.buscarTodosOsModelos();
+  modelos.value = await modelosApi.buscarTodosOsModelos()
   console.log(modelos.value)
-});
+
+})
 
 function limpar() {
-  Object.assign(modelo, { ...defaultModelo });
+  Object.assign(modelo, { ...defaultModelo })
 }
 
 async function salvar() {
-  console.log(modelo  )
   if (modelo.nome.length >= 100) {
-    alert("mais de 50");
+    alert('mais de 100')
   } else if (modelo.id) {
-    await modelosApi.atualizarModelo(modelo);
+    await modelosApi.atualizarModelo(modelo)
   } else {
-    await modelosApi.adicionarModelo(modelo);
+    await modelosApi.adicionarModelo(modelo)
   }
-  modelos.value = await modelosApi.buscarTodosOsModelos();
-  limpar();
+  modelos.value = await modelosApi.buscarTodosOsModelos()
+  limpar()
 }
 
 function editar(modelo_para_editar) {
-    if(modelo_para_editar)
-  Object.assign(modelo, modelo_para_editar);
+  Object.assign(modelo, modelo_para_editar)
 }
 
 async function excluir(id) {
-  await modelosApi.excluirMarca(id);
-  modelos.value = await modelosApi.buscarTodosOsModelos();
-  limpar();
+  await modelosApi.excluirModelo(id)
+  modelos.value = await modelosApi.buscarTodosOsModelos()
+  limpar()
 }
+
+
 </script>
 
 <template>
   <div class="container">
-    <h1>Marca</h1>
-    <div class="form">
-      <div class="input-box">
-        <div class="desc">
-          <label for="descricao">Nome</label>
-          <textarea v-model="modelo.nome"></textarea>
-        </div>
-        <div class="buttons">
-          <button @click="salvar" class="salvar">Salvar</button>
-          <button @click="limpar" class="limpar">Limpar</button>
-        </div>
-      </div>
-      <div class="input-box">
-        <div class="desc">
-          <label for="descricao">Marca</label>
-          <textarea v-model="modelo.marca.nome  "></textarea>
-        </div>
-        <div class="buttons">
-          <button @click="salvar" class="salvar">Salvar</button>
-          <button @click="limpar" class="limpar">Limpar</button>
-        </div>
-      </div>
-      <div class="input-box">
-        <div class="desc">
-          <label for="descricao">Categoria</label>
-          <textarea v-model="modelo.categoria.descricao  "></textarea>
-        </div>
-        <div class="buttons">
-          <button @click="salvar" class="salvar">Salvar</button>
-          <button @click="limpar" class="limpar">Limpar</button>
-        </div>
+    <h1>Modelo</h1>
+    <div class="input-box">
+      <input type="text" v-model="modelo.nome" placeholder="Descrição" />
+      <div class="buttons">
+        <button @click="salvar" class="salvar">Salvar</button>
+        <button @click="limpar" class="limpar">Limpar</button>
       </div>
     </div>
     <ul>
-      <div class="CategoriasContainer" v-for="modelo in modelos" :key="modelo.id">
-        <div class="lis"> 
+      <div class="ModelosContainer" v-for="modelo in modelos" :key="modelo.id">
         <li>
           <p @click="editar(modelo)">
-            {{ modelo.nome }}
+              {{ modelo.nome }} ID:{{ modelo.id }}
           </p>
         </li>
-        <li>
-            <p @click="editar(modelo)">
-            {{ modelo.marca.nome }}
-          </p>
-        </li>
-        <li>
-            <p @click="editar(modelo)">
-            {{ modelo.categoria.descricao }}
-          </p>
-        </li>
-    </div>
-        <div class="buttons">
-          <span class="id">{{ modelo.id }} </span>
           <button class="deletar" @click="excluir(modelo.id)">X</button>
-        </div>
       </div>
+
+      <select v-model="autorInput">
+      <option v-for="marca in modelos.marca" :value="marca.id" :key="marca.id">
+        {{ marca.nome }}
+        {{ marca.nacionalidade }}
+
+      </option>
+    </select>
+
     </ul>
   </div>
 </template>
-<style scoped>
 
+<style scoped>
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+input {
+  all: unset;
+  outline: #5c5c5c solid 1px;
+  height: 40px;
+  width: 220px;
+  border-radius: 5px;
+  color: rgb(0, 0, 0);
+  font-weight: 400;
+  overflow-y: auto;
+  word-break: break-all;
+  padding-left: 20px;
+}
+input::placeholder {
+  color: black;
+}
+
+.input-box {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  align-items: center;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+
+  button {
+    all: unset;
+    color: white;
+    background-color: #ff3131;
+    padding: 5px 10px;
+    border-radius: 10px;
+  }
+  button:hover {
+    cursor: pointer;
+  }
+  button:active {
+    transition: 0.2s;
+    transform: scale(0.94);
+  }
+}
+button {
+    all: unset;
+    color: white;
+    background-color: #5e5e5e;
+    padding: 5px 10px;
+    border-radius: 10px;
+  }
+  button:hover {
+    cursor: pointer;
+  }
+  button:active {
+    transition: 0.2s;
+    transform: scale(0.94);
+  }
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px
+}
+
+li {
+  align-items: center;
+  display: flex;
+  padding-left: 15px;
+  font-weight: 400;
+  height: 40px;
+  width: 150px;
+  border-radius: 5px;
+  background-color: #d3d3d3;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.ModelosContainer {
+  display: flex;
+  gap: 20px;
+}
 </style>

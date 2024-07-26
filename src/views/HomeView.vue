@@ -55,7 +55,7 @@ onMounted(() => {
   display: flex;
   width: 100%;
   padding: 0 7rem;
-  height: 23rem;
+  /*height: 23rem;
   /*height: 370px;*/
   margin-top: 5.5rem;
   justify-content: space-between;
@@ -64,8 +64,8 @@ onMounted(() => {
 .button {
   display: flex;
   background-color: #ff3131;
-  height: 3.2rem;
-  width: 9.6rem;
+  height: 3.5em;
+  width: 10em;
   border-radius: 10px;
   align-items: center;
     justify-content: center;
