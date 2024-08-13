@@ -11,9 +11,10 @@ const categoriasApi = new CategoriasApi()
 const marcas = ref([])
 const marcaInput = ref()
 const categorias = ref([])
+const categoriaInput = ref()
  
 
-const defaultModelo = { id: null, nome: '', marca: [], categoria: [] }
+const defaultModelo = { id: null, nome: '', marca: {}, categoria: {} }
 const modelos = ref([])
 const modelo = reactive({ ...defaultModelo })
 
@@ -40,13 +41,11 @@ async function salvar() {
 }
 
 function editar(modelo_para_editar) {
+  console.log("modelos :", modelos, "modelo", modelo.value, "modelo para editar", modelo_para_editar)
   Object.assign(modelo, modelo_para_editar)
-  if (modelo_para_editar.marca.length == 0) {
-    marcaInput.value = 0
-  } 
-  else {
-    marcaInput.value = modelo_para_editar.marca[0].id
-  }
+  marcaInput.value = modelo_para_editar.marca.nome
+  categoriaInput.value = modelo_para_editar.categoria.descricao
+
 }
 
 async function excluir(id) {
@@ -63,13 +62,13 @@ async function excluir(id) {
       
       <input type="text" v-model="modelo.nome" placeholder="Descrição" />
 
-      <select v-model="modelo.marca">
+      <select v-model="marcaInput">
         <option v-for="marca in marcas" :value="marca.id" :key="marca.id">
           {{ marca.nome }}
         </option>
       </select>
 
-      <select v-model="modelo.categoria.descricao">
+      <select v-model="categoriaInput">
         <option v-for="categoria in categorias" :value="categoria.id" :key="categoria.id">
           {{ categoria.descricao }}
         </option>
