@@ -14,7 +14,7 @@ const categorias = ref([])
 const categoriaInput = ref()
  
 
-const defaultModelo = { id: null, nome: '', marca: {}, categoria: {} }
+const defaultModelo = { id: null, nome: '', marca: '', categoria: '' }
 const modelos = ref([])
 const modelo = reactive({ ...defaultModelo })
 
@@ -60,7 +60,7 @@ async function excluir(id) {
     <h1>Modelo</h1>
     <div class="input-box">
       
-      <input type="text" v-model="modelo.nome" placeholder="Descrição" />
+      <input type="text" v-model="modelo.nome" placeholder="Nome" />
 
       <select v-model="marcaInput">
         <option v-for="marca in marcas" :value="marca.id" :key="marca.id">
@@ -81,8 +81,11 @@ async function excluir(id) {
 
     </div>
     <ul class="ModelosContainer" v-for="modelo in modelos" :key="modelo.id">
-      <li>
-        <p @click="editar(modelo)">{{ modelo.nome }} ID:{{ modelo.id }}</p>
+      <li @click="editar(modelo)">
+        <p >Nome: {{ modelo.nome }} ID:{{ modelo.id }}</p>
+        <p>Modelo: {{ modelo.marca?.nome }}</p>
+        <p>Categoria {{ modelo.categoria?.descricao }}</p>
+
       </li>
       <button class="deletar" @click="excluir(modelo.id)">X</button>
     </ul>
@@ -174,7 +177,7 @@ ul {
 }
 
 li {
-  align-items: center;
+  align-items: flex-start;
   display: flex;
   padding-left: 15px;
   font-weight: 400;
@@ -184,6 +187,8 @@ li {
   background-color: #d3d3d3;
   cursor: pointer;
   transition: 0.2s;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .ModelosContainer {

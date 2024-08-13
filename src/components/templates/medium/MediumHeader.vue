@@ -6,7 +6,7 @@ const authStore = useAuthStore()
 <template>
   <nav>
     <router-link to="/" class="logo">
-      <img src="https://i.ibb.co/854cgsr/logo-semfundo.png" alt="logo-semfundo">
+      <img src="https://i.ibb.co/854cgsr/logo-semfundo.png" alt="logo-semfundo" />
     </router-link>
     <div>
       <router-link
@@ -49,8 +49,19 @@ const authStore = useAuthStore()
       >
         Modelos</router-link
       >
+
+      <router-link
+        to="/veiculos"
+        :class="{
+          'active-link': $route.path === '/veiculos',
+          navtext: $route.path !== '/veiculos'
+        }"
+      >
+        Veiculos</router-link
+      >
+
       <div v-if="authStore.loggedIn">
-        <router-link to="/logout">Logout</router-link>
+        <div class="loginButton"><router-link to="/logout">Logout</router-link></div>
         {{ authStore.user.email }}
       </div>
 
@@ -62,7 +73,7 @@ const authStore = useAuthStore()
 </template>
 <style scoped>
 .loginButton {
-  background-color: #FF3131;
+  background-color: #ff3131;
   padding: 1.2rem 3rem;
   border-radius: 1rem;
 
@@ -93,7 +104,7 @@ nav {
 .logo {
   display: flex;
 }
-img{
+img {
   width: 160px;
 }
 span {
@@ -110,5 +121,4 @@ span {
   color: #007bff;
   /* Your active link color */
 }
-
 </style>

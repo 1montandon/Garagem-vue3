@@ -49,8 +49,16 @@ const authStore = useAuthStore()
       >
         Modelos</router-link
       >
+
+      <router-link
+        to="/veiculos"
+        :class="{ 'active-link': $route.path === '/veiculos', navtext: $route.path !== '/veiculos' }"
+      >
+        Veiculos</router-link
+      >
+
       <div v-if="authStore.loggedIn">
-        <router-link to="/logout">Logout</router-link>
+        <div class="loginButton"><router-link to="/logout">Logout</router-link></div>
         {{ authStore.user.email }}
       </div>
 

@@ -1,54 +1,65 @@
 <script setup>
 import { ref, reactive, onMounted } from 'vue'
+import VeiculosApi from '../api/veiculos' // Atualize o nome do arquivo da API se necessário
 import MarcasApi from '../api/marcas'
+import CategoriasApi from '../api/categorias'
 
-const marcasApi = new MarcasApi()
+const veiculosApi = new VeiculosApi()
 
-const marcas = ref([])
-const defaultMarca = { id: null, nome: '', nacionalidade: '' }
-const marca = reactive({ ...defaultMarca })
+ 
+const defaultVeiculo = { id: null, ano: '', preco: '', modelo: '', cor: '', acessorio: '',}
+const veiculos = ref([])
+const veiculo = reactive({ ...defaultVeiculo })
 
 onMounted(async () => {
-  marcas.value = await marcasApi.buscarTodasAsMarcas()
+  veiculos.value = await veiculosApi.buscarTodosOsVeiculos()
 })
 
 function limpar() {
-  Object.assign(marca, { ...defaultMarca })
+  Object.assign(veiculo, { ...defaultVeiculo })
 }
 
 async function salvar() {
-  console.log(marca)
-  if (marca.nome.length >= 100) {
+  if (veiculo.nome.length >= 100) {
     alert('mais de 100')
-  } else if (marca.id) {
-    await marcasApi.atualizarMarca(marca)
+  } else if (veiculo.id) {
+    await veiculosApi.atualizarVeiculo(veiculo)
   } else {
-    await marcasApi.adicionarMarca(marca)
+    await veiculosApi.adicionarVeiculo(veiculo)
   }
-  marcas.value = await marcasApi.buscarTodasAsMarcas()
+  veiculos.value = await veiculosApi.buscarTodosOsVeiculos()
   limpar()
 }
 
-function editar(marca_para_editar) {
-  console.log(marca_para_editar)
-  Object.assign(marca, marca_para_editar)
+function editar(veiculo_para_editar) {
+  Object.assign(veiculo, veiculo_para_editar)
 }
 
 async function excluir(id) {
-  await marcasApi.excluirMarca(id)
-  marcas.value = await marcasApi.buscarTodosAsMarcas()
+  await veiculosApi.excluirVeiculo(id)
+  veiculos.value = await veiculosApi.buscarTodosOsVeiculos()
   limpar()
 }
 </script>
 
 <template>
   <div class="container">
-    <h1>Marca</h1>
+    <h1>Veículo</h1>
     <div class="input-box">
       
-      <input type="text" v-model="marca.nome" placeholder="Nome" />
+      <input type="text" v-model="veiculo.nome" placeholder="Descrição" />
 
-      <input type="text" v-model="marca.nacionalidade" placeholder="nacionalidade" />
+      <select v-model="marcaInput">
+        <option v-for="marca in marcas" :value="marca.id" :key="marca.id">
+          {{ marca.nome }}
+        </option>
+      </select>
+
+      <select v-model="categoriaInput">
+        <option v-for="categoria in categorias" :value="categoria.id" :key="categoria.id">
+          {{ categoria.descricao }}
+        </option>
+      </select>
 
       <div class="buttons">
         <button @click="salvar" class="salvar">Salvar</button>
@@ -56,12 +67,16 @@ async function excluir(id) {
       </div>
 
     </div>
-    <ul class="MarcasContainer" v-for="marca in marcas" :key="marca.id">
-      <li @click="editar(marca)">
-        <p>Nome: {{ marca.nome }} ID:{{ marca.id }}</p>
-        <p>Nacionalidade: {{ marca.nacionalidade }}</p>
+    <ul class="VeiculosContainer" v-for="veiculo in veiculos" :key="veiculo.id">
+      <li @click="editar(veiculo)">
+        <p>Modelo: {{ veiculo.modelo.nome }} ID:{{ veiculo.id }}</p>
+        <p>Marca: {{ veiculo.modelo.marca.nome }}</p>
+        <p>Ano: {{ veiculo.ano }}</p>
+        <p>Cor: {{ veiculo.cor.nome }}</p>
+        <p>Acessorios: {{ veiculo.acessorio.descricao }}</p>
+        <p>Preco: {{ veiculo.preco }}</p>
       </li>
-      <button class="deletar" @click="excluir(marca.id)">X</button>
+      <button class="deletar" @click="excluir(veiculo.id)">X</button>
     </ul>
   </div>
 </template>
@@ -155,17 +170,17 @@ li {
   display: flex;
   padding-left: 15px;
   font-weight: 400;
-  height: 40px;
+  height: 80px;
   width: 150px;
   border-radius: 5px;
   background-color: #d3d3d3;
   cursor: pointer;
   transition: 0.2s;
   flex-direction: column;
-    justify-content: center;
+  justify-content: center;
 }
 
-.MarcasContainer {
+.VeiculosContainer {
   display: flex;
   gap: 20px;
 }
